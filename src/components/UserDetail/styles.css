@@ -1,0 +1,46 @@
+/* Container của card */
+.card {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+}
+
+/* Tiêu đề chính */
+.card .MuiTypography-h5 {
+  font-weight: 600;
+  color: #333;
+  font-size: 1.5rem;
+}
+
+/* Thông tin phụ */
+.card .MuiTypography-body1 {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 8px;
+}
+
+/* Nút Button */
+.card .MuiButton-root {
+  font-size: 1rem;
+  padding: 10px 20px;
+  border-radius: 8px;
+  background-color: #3f51b5;
+  color: #fff;
+  transition: background-color 0.3s ease-in-out;
+}
+
+/* Hiệu ứng hover cho button */
+.card .MuiButton-root:hover {
+  background-color: #283593;
+}
+
+/* Phần thông báo khi không tìm thấy người dùng */
+.not-found-message {
+  text-align: center;
+  font-size: 1.25rem;
+  color: #d32f2f;
+  margin-top: 50px;
+}

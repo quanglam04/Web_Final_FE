@@ -1,0 +1,53 @@
+/* Container cho các thẻ Card */
+.card {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+}
+
+/* Card Media (Ảnh) */
+.card .MuiCardMedia-root {
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 15px;
+}
+
+/* Phần thông tin về ảnh */
+.card .MuiTypography-body2 {
+  font-size: 0.9rem;
+  color: #555;
+  margin-top: 10px;
+}
+
+/* Phần bình luận */
+.card .comment {
+  margin-bottom: 15px;
+}
+
+/* Phần người dùng trong bình luận */
+.card .MuiTypography-subtitle1 {
+  color: #1976d2;
+  cursor: pointer;
+  font-weight: 500;
+  transition: color 0.3s ease-in-out;
+}
+
+/* Hiệu ứng hover khi di chuột lên tên người dùng */
+.card .MuiTypography-subtitle1:hover {
+  color: #1565c0;
+}
+
+/* Phần divider giữa các bình luận */
+.card .MuiDivider-root {
+  margin: 15px 0;
+}
+
+/* Phần không có bình luận */
+.no-comments {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #9e9e9e;
+}
