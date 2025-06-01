@@ -28,7 +28,11 @@ const App = (props) => {
       <div>
         <Grid container spacing={2}>
           <Grid item xs={12}>
-            <TopBar user={user} userNamePhoto={userNamePhoto} />
+            <TopBar
+              setUser={setUser}
+              user={user}
+              userNamePhoto={userNamePhoto}
+            />
           </Grid>
           <div className="main-topbar-buffer" />
           <Grid item sm={3}>
@@ -36,14 +40,17 @@ const App = (props) => {
           </Grid>
           <Grid item sm={9}>
             <Routes>
-              <Route path="/api/user/:userId" element={<UserDetail />} />
+              <Route
+                path="/api/user/:userId"
+                element={<UserDetail setUser={setUser} />}
+              />
               <Route
                 path="/api/user/photosOfUser/:userId"
                 element={<UserPhotos />}
               />
               <Route path="/users" element={<UserList />} />
+              <Route path="/" element={<LoginRegister setUser={setUser} />} />
             </Routes>
-            <LoginRegister setUser={setUser}></LoginRegister>
           </Grid>
         </Grid>
       </div>

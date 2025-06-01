@@ -15,6 +15,7 @@ const LoginRegister = ({ setUser }) => {
     try {
       const response = await fetch("http://localhost:8081/api/admin/login", {
         method: "POST",
+        credentials: "include",
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
@@ -27,7 +28,7 @@ const LoginRegister = ({ setUser }) => {
         alert("Login Success");
         setUser(result);
         console.log(result);
-        navigate(`api/user/${result._id}`);
+        navigate(`/api/user/${result._id}`);
         setOpenFormLogin(false);
       } else if (response.status === 404) {
         const result = await response.json();

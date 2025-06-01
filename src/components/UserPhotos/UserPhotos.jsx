@@ -8,7 +8,6 @@ import {
 } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
 import "./styles.css";
-import { fetchPhotoByUserIDModel } from "../../lib/fetchModelData";
 
 function UserPhotos() {
   const navigate = useNavigate();
@@ -18,10 +17,25 @@ function UserPhotos() {
 
   useEffect(() => {
     const fetchPhotoByUserID = async () => {
-      const result = await fetchPhotoByUserIDModel(
-        "https://2x5yr7-8081.csb.app/api/user/photosOfUser/" + userId
-      );
-      setUserPhotos(result);
+      try {
+        const response = await fetch(
+          "http://localhost:8081/api/user/photosOfUser/" + userId,
+          {
+            method: "get",
+            credentials: "include",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        if (response.ok) {
+          const result = await response.json();
+          setUserPhotos(result);
+        }
+      } catch (error) {
+        console.error("Lỗi khi lấy data:", error);
+      }
     };
 
     fetchPhotoByUserID();

@@ -2,19 +2,32 @@ import React, { useEffect, useState } from "react";
 import { Button, Card, CardContent, Typography } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
 import "./styles.css";
-import { fetchUserByIDModel } from "../../lib/fetchModelData";
 
-function UserDetail() {
+function UserDetail({ setUser }) {
   const navigate = useNavigate();
   const userParams = useParams();
   const id = userParams.userId;
   const [userDetailDisplay, setUserDetailDisplay] = useState();
   useEffect(() => {
     const fetchUserByID = async () => {
-      const result = await fetchUserByIDModel(
-        "https://2x5yr7-8081.csb.app/api/user/" + id
-      );
-      setUserDetailDisplay(result);
+      try {
+        const response = await fetch("http://localhost:8081/api/user/" + id, {
+          method: "get",
+          credentials: "include",
+          headers: {
+            Accept: "application /json",
+            "Content-Type": "application/json",
+          },
+        });
+        if (response.ok) {
+          const result = await response.json();
+          setUser(result);
+          setUserDetailDisplay(result);
+        }
+      } catch (error) {
+        console.error("Error creating data:", error);
+        return null;
+      }
     };
     fetchUserByID();
   }, [id]);

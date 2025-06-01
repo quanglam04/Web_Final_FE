@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Divider, List, ListItem, ListItemText } from "@mui/material";
 import { Link } from "react-router-dom";
-import "./styles.css";
-import { fetchListUserModel } from "../../lib/fetchModelData";
 
 function UserList() {
   // call API lấy danh sách tất cả các người dùng rồi gán vào model
@@ -10,12 +8,29 @@ function UserList() {
 
   useEffect(() => {
     const fetchListUser = async () => {
-      const result = await fetchListUserModel(
-        "https://2x5yr7-8081.csb.app/api/user/list"
-      );
-      if (result) {
-        setUsers(result);
-        console.log("Kết quả trả về: ", result);
+      try {
+        const response = await fetch("http://localhost:8081/api/user/list", {
+          method: "GET",
+          credentials: "include",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        if (response.status === 200) {
+          const result = await response.json();
+          setUsers(result);
+        } else if (response.status === 401) {
+          alert("Vui lòng đăng nhập");
+          window.location.href = "/";
+        }
+      } catch (error) {
+        console.error("Lỗi khi gọi API:", error);
+        return null;
       }
     };
 
