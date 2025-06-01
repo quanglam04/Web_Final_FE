@@ -10,6 +10,7 @@ import UserList from "./components/UserList/UserList";
 import UserPhotos from "./components/UserPhotos/UserPhotos";
 import models from "./modelData/models";
 import LoginRegister from "./components/LoginRegister";
+import NoMatch from "./components/NoMatch";
 
 const App = (props) => {
   const [userName, setUserName] = useState("");
@@ -50,6 +51,7 @@ const App = (props) => {
               />
               <Route path="/users" element={<UserList />} />
               <Route path="/" element={<LoginRegister setUser={setUser} />} />
+              <Route path="*" element={<NoMatch />} />
             </Routes>
           </Grid>
         </Grid>

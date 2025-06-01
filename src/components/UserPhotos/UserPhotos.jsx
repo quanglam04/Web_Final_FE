@@ -43,7 +43,7 @@ function UserPhotos() {
     };
 
     fetchPhotoByUserID();
-  }, [userPhotos]);
+  }, []);
 
   return (
     <div>
