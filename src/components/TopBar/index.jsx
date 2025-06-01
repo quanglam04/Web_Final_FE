@@ -1,4 +1,3 @@
-import React from "react";
 import { AppBar, Toolbar, Typography, Box } from "@mui/material";
 
 import "./styles.css";
@@ -18,9 +17,7 @@ function TopBar({ user, setUser }) {
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
-
       setUser(null);
-
       window.location.href = "/";
     } catch (error) {
       console.error("Lỗi khi gọi API:", error);

@@ -3,9 +3,7 @@ import { Divider, List, ListItem, ListItemText } from "@mui/material";
 import { Link } from "react-router-dom";
 
 function UserList() {
-  // call API lấy danh sách tất cả các người dùng rồi gán vào model
   const [users, setUsers] = useState([]);
-
   useEffect(() => {
     const fetchListUser = async () => {
       try {

@@ -3,7 +3,7 @@ import { Button, Card, CardContent, Typography } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
 import "./styles.css";
 
-function UserDetail({}) {
+function UserDetail() {
   const navigate = useNavigate();
   const userParams = useParams();
   const id = userParams.userId;
