@@ -9,11 +9,12 @@ import UserDetail from "./components/UserDetail/UserDetail";
 import UserList from "./components/UserList/UserList";
 import UserPhotos from "./components/UserPhotos/UserPhotos";
 import models from "./modelData/models";
+import LoginRegister from "./components/LoginRegister";
 
 const App = (props) => {
   const [userName, setUserName] = useState("");
   const [userNamePhoto, setUserNamePhoto] = useState("");
-
+  const [user, setUser] = useState();
   const updateUserName = (userId) => {
     const users = models.userListModel();
     const user = users.find((user) => user._id === userId);
@@ -27,11 +28,11 @@ const App = (props) => {
       <div>
         <Grid container spacing={2}>
           <Grid item xs={12}>
-            <TopBar userName={userName} userNamePhoto={userNamePhoto} />
+            <TopBar user={user} userNamePhoto={userNamePhoto} />
           </Grid>
           <div className="main-topbar-buffer" />
           <Grid item sm={3}>
-            <UserList />
+            {user && <UserList />}
           </Grid>
           <Grid item sm={9}>
             <Routes>
@@ -42,6 +43,7 @@ const App = (props) => {
               />
               <Route path="/users" element={<UserList />} />
             </Routes>
+            <LoginRegister setUser={setUser}></LoginRegister>
           </Grid>
         </Grid>
       </div>

@@ -3,14 +3,22 @@ import { AppBar, Grid, Toolbar, Typography } from "@mui/material";
 
 import "./styles.css";
 
-function TopBar({ userName, userNamePhoto }) {
+function TopBar({ userName, user }) {
+  console.log("trang topbar: ", user);
+
   return (
     <AppBar className="topbar-appBar" position="absolute">
       <Toolbar>
         <Grid container justifyContent="space-between" alignItems="center">
           <Grid item>
             <Typography variant="h5" color="inherit">
-              Trịnh Quang Lâm - B22DCCN482
+              {user ? (
+                <>
+                  {user.first_name} {user.last_name}
+                </>
+              ) : (
+                <>Please Login</>
+              )}
             </Typography>
           </Grid>
 
