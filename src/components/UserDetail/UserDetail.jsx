@@ -19,10 +19,14 @@ function UserDetail({ setUser }) {
             "Content-Type": "application/json",
           },
         });
-        if (response.ok) {
+        if (response.status === 200) {
           const result = await response.json();
           setUser(result);
           setUserDetailDisplay(result);
+        } else {
+          const result = await response.json();
+          alert(`${result.message}`);
+          window.location.href = "/";
         }
       } catch (error) {
         console.error("Error creating data:", error);

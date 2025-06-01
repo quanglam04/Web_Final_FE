@@ -18,9 +18,6 @@ function UserList() {
           },
         });
 
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
         if (response.status === 200) {
           const result = await response.json();
           setUsers(result);

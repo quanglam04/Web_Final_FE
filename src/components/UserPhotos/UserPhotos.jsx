@@ -29,9 +29,13 @@ function UserPhotos() {
             },
           }
         );
-        if (response.ok) {
+        if (response.status === 200) {
           const result = await response.json();
           setUserPhotos(result);
+        } else {
+          const result = await response.json();
+          alert(`${result.message}`);
+          window.location.href = "/";
         }
       } catch (error) {
         console.error("Lỗi khi lấy data:", error);
