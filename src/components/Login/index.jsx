@@ -1,9 +1,9 @@
 import { Box, Button, Paper, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
-const LoginRegister = ({ setUser }) => {
+const Login = ({ setUser }) => {
   const [openFormLogin, setOpenFormLogin] = useState(true);
   const {
     register,
@@ -61,7 +61,7 @@ const LoginRegister = ({ setUser }) => {
               Đăng nhập
             </Typography>
 
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
               <TextField
                 fullWidth
                 label="Tên đăng nhập"
@@ -71,10 +71,21 @@ const LoginRegister = ({ setUser }) => {
                 error={!!errors.login_name}
                 helperText={errors.login_name && "Tên đăng nhập là bắt buộc"}
               />
+
+              <TextField
+                fullWidth
+                type="password"
+                label="Mật khẩu"
+                variant="outlined"
+                margin="normal"
+                {...register("pass_word", { required: true })}
+                error={!!errors.pass_word}
+                helperText={errors.pass_word && "Mật khẩu là bắt buộc"}
+              />
               {errorLogin && (
                 <>
                   <div style={{ color: "red" }}>
-                    Tên đăng nhập không chính xác
+                    Mật khẩu hoặc tên đăng nhập không chính xác
                   </div>
                 </>
               )}
@@ -89,10 +100,25 @@ const LoginRegister = ({ setUser }) => {
                 Đăng nhập
               </Button>
             </form>
+            <div
+              style={{
+                marginTop: "10px",
+                display: "flex",
+                justifyContent: "center",
+              }}
+            >
+              <span>
+                Chưa có tài khoản?{" "}
+                <Link style={{ textDecoration: "none" }} to="/register">
+                  Nhấn vào đây
+                </Link>{" "}
+                để đăng ký
+              </span>
+            </div>
           </Paper>
         </Box>
       )}
     </>
   );
 };
-export default LoginRegister;
+export default Login;

@@ -8,8 +8,9 @@ import TopBar from "./components/TopBar";
 import UserDetail from "./components/UserDetail/UserDetail";
 import UserList from "./components/UserList/UserList";
 import UserPhotos from "./components/UserPhotos/UserPhotos";
-import LoginRegister from "./components/LoginRegister";
 import NoMatch from "./components/NoMatch";
+import Login from "./components/Login";
+import Register from "./components/Register";
 
 const App = () => {
   const [user, setUser] = useState();
@@ -52,16 +53,14 @@ const App = () => {
           </Grid>
           <Grid item sm={9}>
             <Routes>
-              <Route
-                path="/api/user/:userId"
-                element={<UserDetail checkCurrentUser={checkCurrentUser} />}
-              />
+              <Route path="/api/user/:userId" element={<UserDetail />} />
               <Route
                 path="/api/user/photosOfUser/:userId"
                 element={<UserPhotos userLogin={user} />}
               />
               <Route path="/users" element={<UserList />} />
-              <Route path="/" element={<LoginRegister setUser={setUser} />} />
+              <Route path="/register" element={<Register />} />
+              <Route path="/" element={<Login setUser={setUser} />} />
               <Route path="*" element={<NoMatch />} />
             </Routes>
           </Grid>
