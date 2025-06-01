@@ -1,3 +1,4 @@
+import { Box, Button, TextField } from "@mui/material";
 import { useForm } from "react-hook-form";
 
 function CommentForm({ fetchPhotoByUserID, photoId, userLogin }) {
@@ -41,22 +42,23 @@ function CommentForm({ fetchPhotoByUserID, photoId, userLogin }) {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <input
-        style={{
-          width: "90%",
-          height: "50px",
-          marginRight: "10px",
-        }}
-        type="text"
-        {...register("comment", { required: true })}
-        placeholder="  Thêm bình luận"
-      />
-      {errors.comment && (
-        <p style={{ color: "red", margin: "5px" }}>Yêu cầu nhập bình luận</p>
-      )}
-      <button type="submit" style={{ height: "50px" }}>
-        Gửi
-      </button>
+      <Box display="flex" alignItems="center" gap={2} sx={{ width: "100%" }}>
+        <TextField
+          fullWidth
+          variant="outlined"
+          placeholder="Thêm bình luận"
+          {...register("comment", { required: true })}
+          size="medium"
+        />
+        <Button
+          variant="contained"
+          color="primary"
+          type="submit"
+          sx={{ height: "56px" }}
+        >
+          Gửi
+        </Button>
+      </Box>
     </form>
   );
 }
