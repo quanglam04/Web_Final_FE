@@ -8,7 +8,6 @@ import {
 } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
 import "./styles.css";
-import { useForm } from "react-hook-form";
 import CommentForm from "../CommentForm";
 
 function UserPhotos({ userLogin }) {

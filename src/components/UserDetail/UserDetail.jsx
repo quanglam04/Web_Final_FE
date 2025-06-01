@@ -3,7 +3,7 @@ import { Button, Card, CardContent, Typography } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
 import "./styles.css";
 
-function UserDetail({ setUser }) {
+function UserDetail({}) {
   const navigate = useNavigate();
   const userParams = useParams();
   const id = userParams.userId;
@@ -29,7 +29,6 @@ function UserDetail({ setUser }) {
         }
       } catch (error) {
         console.error("Error creating data:", error);
-        return null;
       }
     };
     fetchUserByID();

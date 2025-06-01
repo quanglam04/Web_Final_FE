@@ -3,7 +3,7 @@ import { AppBar, Toolbar, Typography, Box } from "@mui/material";
 
 import "./styles.css";
 
-function TopBar({ userName, user, setUser }) {
+function TopBar({ user, setUser }) {
   const logout = async () => {
     try {
       const response = await fetch("http://localhost:8081/api/admin/logout", {
@@ -31,7 +31,20 @@ function TopBar({ userName, user, setUser }) {
     <AppBar className="topbar-appBar" position="absolute">
       <Toolbar>
         <Typography variant="h5" color="inherit">
-          {user ? `${user.first_name} ${user.last_name}` : "Please Login"}
+          {user ? (
+            `Hello ${user.first_name} ${user.last_name}`
+          ) : (
+            <>
+              <div
+                style={{ cursor: "pointer" }}
+                onClick={() => {
+                  window.location.href = "/";
+                }}
+              >
+                Please Login
+              </div>
+            </>
+          )}
         </Typography>
 
         <Box sx={{ flexGrow: 1 }} />
