@@ -13,7 +13,6 @@ const LoginRegister = ({ setUser }) => {
   const [errorLogin, setErrorLogin] = useState("");
   const navigate = useNavigate();
   const onSubmit = async (data) => {
-    console.log(data);
     try {
       const response = await fetch("http://localhost:8081/api/admin/login", {
         method: "POST",
@@ -29,7 +28,6 @@ const LoginRegister = ({ setUser }) => {
         const result = await response.json();
         alert("Login Success");
         setUser(result);
-        console.log(result);
         navigate(`/api/user/${result._id}`);
         setOpenFormLogin(false);
       } else if (response.status === 401) {

@@ -8,40 +8,41 @@ import {
 } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
 import "./styles.css";
+import { useForm } from "react-hook-form";
+import CommentForm from "../CommentForm";
 
-function UserPhotos() {
+function UserPhotos({ userLogin }) {
   const navigate = useNavigate();
   const userParams = useParams();
   const userId = userParams.userId;
   const [userPhotos, setUserPhotos] = useState([]);
 
-  useEffect(() => {
-    const fetchPhotoByUserID = async () => {
-      try {
-        const response = await fetch(
-          "http://localhost:8081/api/user/photosOfUser/" + userId,
-          {
-            method: "get",
-            credentials: "include",
-            headers: {
-              Accept: "application/json",
-              "Content-Type": "application/json",
-            },
-          }
-        );
-        if (response.status === 200) {
-          const result = await response.json();
-          setUserPhotos(result);
-        } else {
-          const result = await response.json();
-          alert(`${result.message}`);
-          window.location.href = "/";
+  const fetchPhotoByUserID = async () => {
+    try {
+      const response = await fetch(
+        "http://localhost:8081/api/user/photosOfUser/" + userId,
+        {
+          method: "get",
+          credentials: "include",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
         }
-      } catch (error) {
-        console.error("Lỗi khi lấy data:", error);
+      );
+      if (response.status === 200) {
+        const result = await response.json();
+        setUserPhotos(result);
+      } else {
+        const result = await response.json();
+        alert(`${result.message}`);
+        window.location.href = "/";
       }
-    };
-
+    } catch (error) {
+      console.error("Lỗi khi lấy data:", error);
+    }
+  };
+  useEffect(() => {
     fetchPhotoByUserID();
   }, []);
 
@@ -105,6 +106,11 @@ function UserPhotos() {
                 </Typography>
               )}
             </CardContent>
+            <CommentForm
+              fetchPhotoByUserID={fetchPhotoByUserID}
+              userLogin={userLogin}
+              photoId={photo._id}
+            />
           </Card>
         ))
       )}

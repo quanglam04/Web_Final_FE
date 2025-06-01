@@ -21,7 +21,6 @@ function UserDetail({ setUser }) {
         });
         if (response.status === 200) {
           const result = await response.json();
-          setUser(result);
           setUserDetailDisplay(result);
         } else {
           const result = await response.json();

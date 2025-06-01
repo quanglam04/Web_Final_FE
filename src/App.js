@@ -41,13 +41,10 @@ const App = (props) => {
           </Grid>
           <Grid item sm={9}>
             <Routes>
-              <Route
-                path="/api/user/:userId"
-                element={<UserDetail setUser={setUser} />}
-              />
+              <Route path="/api/user/:userId" element={<UserDetail />} />
               <Route
                 path="/api/user/photosOfUser/:userId"
-                element={<UserPhotos />}
+                element={<UserPhotos userLogin={user} />}
               />
               <Route path="/users" element={<UserList />} />
               <Route path="/" element={<LoginRegister setUser={setUser} />} />
