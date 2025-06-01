@@ -8,9 +8,46 @@ const Register = () => {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm();
+  const navigate = useNavigate();
   const [errorLogin, setErrorLogin] = useState("");
-  const onSubmit = async (data) => {};
+  const onSubmit = async (data) => {
+    if (data.pass_word !== data.confirm_pass_word) {
+      setErrorLogin("Mật khẩu nhập không chính xác");
+      return;
+    } else {
+      setErrorLogin("");
+      try {
+        const response = await fetch(
+          "http://localhost:8081/api/admin/register",
+          {
+            method: "POST",
+            credentials: "include",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+          }
+        );
+        if (response.status === 200) {
+          const result = await response.json();
+          alert(`${result.message}`);
+          navigate("/");
+        } else if (response.status === 400) {
+          const result = await response.json();
+          alert(`${result.message}`);
+          reset();
+        } else {
+          const result = await response.json();
+          alert(`${result.message}`);
+        }
+      } catch (e) {
+        //
+      }
+    }
+  };
   return (
     <>
       <Box
@@ -38,34 +75,95 @@ const Register = () => {
               label="Tên đăng nhập"
               variant="outlined"
               margin="normal"
-              {...register("login_name", { required: true })}
+              {...register("login_name", {
+                required: "Tên đăng nhập là bắt buộc",
+                validate: (value) =>
+                  value.trim() !== "" || "Tên đăng nhập không được để trống",
+              })}
               error={!!errors.login_name}
-              helperText={errors.login_name && "Tên đăng nhập là bắt buộc"}
+              helperText={errors.login_name?.message}
             />
-            {errorLogin && (
-              <>
-                <div style={{ color: "red" }}>
-                  Tên đăng nhập không chính xác
-                </div>
-              </>
-            )}
 
             <TextField
               fullWidth
-              label="Tên đăng nhập"
+              label="Mật khẩu"
+              type="password"
               variant="outlined"
               margin="normal"
-              {...register("login_name", { required: true })}
-              error={!!errors.login_name}
-              helperText={errors.login_name && "Tên đăng nhập là bắt buộc"}
+              {...register("pass_word", {
+                required: "Mật khẩu là bắt buộc",
+                validate: (value) =>
+                  value.trim() !== "" || "Mật khẩu không được để trống",
+              })}
+              error={!!errors.pass_word}
+              helperText={errors.pass_word?.message}
             />
-            {errorLogin && (
-              <>
-                <div style={{ color: "red" }}>
-                  Tên đăng nhập không chính xác
-                </div>
-              </>
-            )}
+
+            <TextField
+              fullWidth
+              type="password"
+              label="Nhập lại mật khẩu"
+              variant="outlined"
+              margin="normal"
+              {...register("confirm_pass_word", { required: true })}
+              error={!!errors.confirm_pass_word}
+              helperText={
+                errors.confirm_pass_word && "Nhập lại mật khẩu là bắt buộc"
+              }
+            />
+            {errorLogin && <div style={{ color: "red" }}>{errorLogin}</div>}
+
+            <TextField
+              fullWidth
+              label="Họ"
+              variant="outlined"
+              margin="normal"
+              {...register("first_name", {
+                required: "Họ tên là bắt buộc",
+                validate: (value) =>
+                  value.trim() !== "" || "Họ không được để trống",
+              })}
+              error={!!errors.first_name}
+              helperText={errors.first_name?.message}
+            />
+
+            <TextField
+              fullWidth
+              label="Tên"
+              variant="outlined"
+              margin="normal"
+              {...register("last_name", {
+                required: true,
+                validate: (value) =>
+                  value.trim() !== "" || "Mật khẩu không được để trống",
+              })}
+              error={!!errors.last_name}
+              helperText={errors.last_name?.message}
+            />
+
+            <TextField
+              fullWidth
+              label="Địa chỉ"
+              variant="outlined"
+              margin="normal"
+              {...register("location")}
+            />
+
+            <TextField
+              fullWidth
+              label="Giới thiệu bản thân"
+              variant="outlined"
+              margin="normal"
+              {...register("description")}
+            />
+
+            <TextField
+              fullWidth
+              label="Nghề nghiệp"
+              variant="outlined"
+              margin="normal"
+              {...register("occupation")}
+            />
 
             <Button
               fullWidth
