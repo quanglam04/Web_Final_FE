@@ -133,9 +133,9 @@ const Register = () => {
               variant="outlined"
               margin="normal"
               {...register("last_name", {
-                required: true,
+                required: "Tên là bắt buộc",
                 validate: (value) =>
-                  value.trim() !== "" || "Mật khẩu không được để trống",
+                  value.trim() !== "" || "Tên không được để trống",
               })}
               error={!!errors.last_name}
               helperText={errors.last_name?.message}

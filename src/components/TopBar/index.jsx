@@ -25,10 +25,6 @@ function TopBar({ user, setUser }) {
     }
   };
 
-  const handleAddPhoto = async () => {
-    // call API
-  };
-
   return (
     <AppBar className="topbar-appBar" position="absolute">
       <Toolbar>
@@ -54,7 +50,7 @@ function TopBar({ user, setUser }) {
         {user && (
           <>
             <Typography variant="h5" color="inherit">
-              <div style={{ cursor: "pointer" }} onClick={handleAddPhoto}>
+              <div style={{ cursor: "pointer" }}>
                 <Link
                   style={{ textDecoration: "none", color: "white" }}
                   to={"/addPhotos"}

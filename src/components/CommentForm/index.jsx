@@ -30,8 +30,6 @@ function CommentForm({ fetchPhotoByUserID, photoId, userLogin }) {
     );
     if (response.status === 200) {
       alert("Bình luận thành công");
-      const result = await response.json();
-      console.log(result);
       fetchPhotoByUserID();
       reset();
     } else if (response.status === 401) {

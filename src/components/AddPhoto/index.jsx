@@ -37,9 +37,6 @@ const AddPhoto = ({ userLogin }) => {
     formData.append("user_id", userLogin._id);
     formData.append("comments", JSON.stringify([]));
 
-    for (let [key, value] of formData.entries()) {
-      console.log(`${key}:`, value);
-    }
     setUploading(true);
 
     try {
@@ -52,10 +49,6 @@ const AddPhoto = ({ userLogin }) => {
       if (response.status === 200) {
         const result = await response.json();
         alert(`Upload thành công. Tên file: ${result.file_name}`);
-
-        // Lưu ảnh vào frontend
-        const imageUrl = URL.createObjectURL(data.image[0]);
-        console.log("Ảnh lưu tại:", imageUrl);
 
         reset();
         setPreview(null);
