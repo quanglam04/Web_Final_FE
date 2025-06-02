@@ -1,6 +1,7 @@
 import { AppBar, Toolbar, Typography, Box } from "@mui/material";
 
 import "./styles.css";
+import { Link } from "react-router-dom";
 
 function TopBar({ user, setUser }) {
   const logout = async () => {
@@ -22,6 +23,10 @@ function TopBar({ user, setUser }) {
     } catch (error) {
       console.error("Lỗi khi gọi API:", error);
     }
+  };
+
+  const handleAddPhoto = async () => {
+    // call API
   };
 
   return (
@@ -47,11 +52,26 @@ function TopBar({ user, setUser }) {
         <Box sx={{ flexGrow: 1 }} />
 
         {user && (
-          <Typography variant="h5" color="inherit">
-            <div style={{ cursor: "pointer" }} onClick={logout}>
-              Logout
-            </div>
-          </Typography>
+          <>
+            <Typography variant="h5" color="inherit">
+              <div style={{ cursor: "pointer" }} onClick={handleAddPhoto}>
+                <Link
+                  style={{ textDecoration: "none", color: "white" }}
+                  to={"/addPhotos"}
+                >
+                  Add Photo
+                </Link>
+              </div>
+            </Typography>
+
+            <div style={{ width: "20px" }}></div>
+
+            <Typography variant="h5" color="inherit">
+              <div style={{ cursor: "pointer" }} onClick={logout}>
+                Logout
+              </div>
+            </Typography>
+          </>
         )}
       </Toolbar>
     </AppBar>

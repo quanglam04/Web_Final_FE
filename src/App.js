@@ -11,6 +11,7 @@ import UserPhotos from "./components/UserPhotos/UserPhotos";
 import NoMatch from "./components/NoMatch";
 import Login from "./components/Login";
 import Register from "./components/Register";
+import AddPhoto from "./components/AddPhoto";
 
 const App = () => {
   const [user, setUser] = useState();
@@ -60,6 +61,10 @@ const App = () => {
               />
               <Route path="/users" element={<UserList />} />
               <Route path="/register" element={<Register />} />
+              <Route
+                path="/addPhotos"
+                element={<AddPhoto userLogin={user} />}
+              />
               <Route path="/" element={<Login setUser={setUser} />} />
               <Route path="*" element={<NoMatch />} />
             </Routes>
