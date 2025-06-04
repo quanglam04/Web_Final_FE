@@ -2,7 +2,7 @@ import { Box, Button, Paper, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
-
+const BASE_API = process.env.REACT_APP_API_URL;
 const Login = ({ setUser }) => {
   const [openFormLogin, setOpenFormLogin] = useState(true);
   const {
@@ -14,9 +14,10 @@ const Login = ({ setUser }) => {
   const navigate = useNavigate();
   const onSubmit = async (data) => {
     try {
-      const response = await fetch("http://localhost:8081/api/admin/login", {
+      console.log(data);
+
+      const response = await fetch(`${BASE_API}/api/admin/`, {
         method: "POST",
-        credentials: "include",
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
@@ -26,9 +27,13 @@ const Login = ({ setUser }) => {
 
       if (response.status === 200) {
         const result = await response.json();
+        if (result.token) {
+          // Lưu token vào localStorage hoặc sessionStorage
+          localStorage.setItem("token", result.token);
+        }
         alert("Login Success");
-        setUser(result);
-        navigate(`/api/user/${result._id}`);
+        setUser(result.user);
+        navigate(`/api/user/${result.user._id}`);
         setOpenFormLogin(false);
       } else if (response.status === 401) {
         const result = await response.json();

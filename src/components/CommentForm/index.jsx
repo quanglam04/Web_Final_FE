@@ -1,6 +1,6 @@
 import { Box, Button, TextField } from "@mui/material";
 import { useForm } from "react-hook-form";
-
+const BASE_API = process.env.REACT_APP_API_URL;
 function CommentForm({ fetchPhotoByUserID, photoId, userLogin }) {
   const {
     register,
@@ -16,14 +16,19 @@ function CommentForm({ fetchPhotoByUserID, photoId, userLogin }) {
       date_time: new Date().toLocaleString(),
       userLogin: userLogin,
     };
+    const token = localStorage.getItem("token");
+    if (!token) {
+      window.location.href = "/";
+      return;
+    }
     const response = await fetch(
-      "http://localhost:8081/api/photo/commentsOfPhoto/" + photoId,
+      `${BASE_API}/api/photo/commentsOfPhoto/` + photoId,
       {
         method: "POST",
-        credentials: "include",
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(comment),
       }

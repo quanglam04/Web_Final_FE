@@ -1,18 +1,23 @@
 import React, { useEffect, useState } from "react";
 import { Divider, List, ListItem, ListItemText } from "@mui/material";
 import { Link } from "react-router-dom";
-
+const BASE_API = process.env.REACT_APP_API_URL;
 function UserList() {
   const [users, setUsers] = useState([]);
   useEffect(() => {
     const fetchListUser = async () => {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        window.location.href = "/";
+        return;
+      }
       try {
-        const response = await fetch("http://localhost:8081/api/user/list", {
+        const response = await fetch(`${BASE_API}/api/user/list`, {
           method: "GET",
-          credentials: "include",
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
           },
         });
 

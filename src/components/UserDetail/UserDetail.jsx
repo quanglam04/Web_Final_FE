@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Button, Card, CardContent, Typography } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
 import "./styles.css";
-
+const BASE_API = process.env.REACT_APP_API_URL;
 function UserDetail() {
   const navigate = useNavigate();
   const userParams = useParams();
@@ -10,13 +10,18 @@ function UserDetail() {
   const [userDetailDisplay, setUserDetailDisplay] = useState();
   useEffect(() => {
     const fetchUserByID = async () => {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        window.location.href = "/";
+        return;
+      }
       try {
-        const response = await fetch("http://localhost:8081/api/user/" + id, {
+        const response = await fetch(`${BASE_API}/api/user/` + id, {
           method: "get",
-          credentials: "include",
           headers: {
             Accept: "application /json",
             "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
           },
         });
         if (response.status === 200) {

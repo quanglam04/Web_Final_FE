@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-
+const BASE_API = process.env.REACT_APP_API_URL;
 const AddPhoto = ({ userLogin }) => {
   const [preview, setPreview] = useState(null);
   const [uploading, setUploading] = useState(false);
@@ -40,9 +40,17 @@ const AddPhoto = ({ userLogin }) => {
     setUploading(true);
 
     try {
-      const response = await fetch("http://localhost:8081/api/photo/new", {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        window.location.href = "/";
+        return;
+      }
+      const response = await fetch(`${BASE_API}/api/photo/new`, {
         method: "POST",
-        credentials: "include",
+        headers: {
+          Accept: "application/json",
+          Authorization: `Bearer ${token}`,
+        },
         body: formData,
       });
 

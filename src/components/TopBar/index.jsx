@@ -2,22 +2,22 @@ import { AppBar, Toolbar, Typography, Box } from "@mui/material";
 
 import "./styles.css";
 import { Link } from "react-router-dom";
+const BASE_API = process.env.REACT_APP_API_URL;
 
 function TopBar({ user, setUser }) {
+  console.log(user);
+
   const logout = async () => {
     try {
-      const response = await fetch("http://localhost:8081/api/admin/logout", {
+      await fetch(`${BASE_API}/api/admin/logout`, {
         method: "POST",
-        credentials: "include",
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
         },
       });
-
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
+      alert("Logout thành công");
+      localStorage.removeItem("token");
       setUser(null);
       window.location.href = "/";
     } catch (error) {
@@ -30,7 +30,7 @@ function TopBar({ user, setUser }) {
       <Toolbar>
         <Typography variant="h5" color="inherit">
           {user ? (
-            `Hello ${user.first_name} ${user.last_name}`
+            `Hello ${user.full_name}`
           ) : (
             <>
               <div

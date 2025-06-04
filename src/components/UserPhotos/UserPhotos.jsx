@@ -9,7 +9,7 @@ import {
 import { useNavigate, useParams } from "react-router-dom";
 import "./styles.css";
 import CommentForm from "../CommentForm";
-
+const BASE_API = process.env.REACT_APP_API_URL;
 function UserPhotos({ userLogin }) {
   const navigate = useNavigate();
   const userParams = useParams();
@@ -17,15 +17,20 @@ function UserPhotos({ userLogin }) {
   const [userPhotos, setUserPhotos] = useState([]);
 
   const fetchPhotoByUserID = async () => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      window.location.href = "/";
+      return;
+    }
     try {
       const response = await fetch(
-        "http://localhost:8081/api/user/photosOfUser/" + userId,
+        `${BASE_API}/api/user/photosOfUser/` + userId,
         {
           method: "get",
-          credentials: "include",
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
           },
         }
       );

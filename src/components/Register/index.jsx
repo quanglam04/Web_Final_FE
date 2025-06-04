@@ -2,6 +2,7 @@ import { Box, Button, Paper, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
+const BASE_API = process.env.REACT_APP_API_URL;
 
 const Register = () => {
   const {
@@ -19,18 +20,14 @@ const Register = () => {
     } else {
       setErrorLogin("");
       try {
-        const response = await fetch(
-          "http://localhost:8081/api/admin/register",
-          {
-            method: "POST",
-            credentials: "include",
-            headers: {
-              Accept: "application/json",
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(data),
-          }
-        );
+        const response = await fetch(`${BASE_API}/api/admin/register`, {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        });
         if (response.status === 200) {
           const result = await response.json();
           alert(`${result.message}`);
