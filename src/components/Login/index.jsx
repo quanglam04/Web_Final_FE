@@ -13,10 +13,11 @@ const Login = ({ setUser }) => {
   const [errorLogin, setErrorLogin] = useState("");
   const navigate = useNavigate();
   const onSubmit = async (data) => {
+    console.log(">>>", BASE_API);
     try {
       console.log(data);
 
-      const response = await fetch(`${BASE_API}/api/admin/`, {
+      const response = await fetch(`${BASE_API}/api/admin/login`, {
         method: "POST",
         headers: {
           Accept: "application/json",

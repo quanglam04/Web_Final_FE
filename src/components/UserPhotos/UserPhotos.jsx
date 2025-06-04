@@ -67,7 +67,7 @@ function UserPhotos({ userLogin }) {
                 margin: "0 auto",
               }}
               component="img"
-              image={`/images/${photo.file_name}`}
+              image={`${BASE_API}/uploads/${photo.file_name}`}
               className="MuiCardMedia-root"
             />
             <CardContent>

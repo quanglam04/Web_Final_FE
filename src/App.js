@@ -12,17 +12,22 @@ import NoMatch from "./components/NoMatch";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import AddPhoto from "./components/AddPhoto";
-
+const BASE_API = process.env.REACT_APP_API_URL;
 const App = () => {
   const [user, setUser] = useState();
   const checkCurrentUser = async () => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      return;
+    }
     try {
-      const response = await fetch("http://localhost:8081/api/user/me", {
+      const response = await fetch(`${BASE_API}/api/user/me`, {
         method: "GET",
         credentials: "include",
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
       });
 
